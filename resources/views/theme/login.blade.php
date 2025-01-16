@@ -23,6 +23,7 @@
                     </div>
                     <div class="form-group text-center text-md-right mt-3">
                         <button type="submit" class="button button--active button-contactForm">Login</button>
+                        <a href="{{Route('register')}}"> Do Not Have An Account ? Register</a>
                     </div>
                 </form>
             </div>
