@@ -38,11 +38,27 @@
                     <!-- Add new blog -->
                     <a href="#" class="btn btn-sm btn-primary mr-2">Add New</a>
                     <!-- End - Add new blog -->
+                    @guest
+                        <ul class="nav navbar-nav navbar-right navbar-social">
+                            <a href="{{Route('register')}}" class="btn btn-sm btn-warning">Register / Login</a>
 
-                    <ul class="nav navbar-nav navbar-right navbar-social">
-                        <a href="{{Route('register')}}" class="btn btn-sm btn-warning">Register / Login</a>
+                        </ul>
+                    @endguest
 
-                    </ul>
+                    @auth
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false"> {{ explode(" ",Auth::user()->name)[0] }}</a>
+                            <ul class="dropdown-menu">
+                                <li>myblogs</li>
+                                <form action="{{route('logout')}}" method="post">
+                                    @csrf
+                                    <input type="submit" class="nav-link btn btn-link" value="Logout">
+                                </form>
+                            </ul>
+
+                        </li>
+                    @endauth
                 </div>
             </div>
         </nav>

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ContatcController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
 
 
-
+# Auth route
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -15,12 +17,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+# Theme Controller
 Route::controller(ThemeController::class)->name('theme.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/category', 'category')->name('category');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/singleBlog', 'singleBlog')->name('singleBlog');
-    
-});
 
+});
+# Subscribe Route
+Route::post('sub/store', [SubscriberController::class, 'store'])->name('sub.store');
+# contact route
+Route::post('contact/store', [ContatcController::class, 'store'])->name('contact.store');
 require __DIR__ . '/auth.php';
