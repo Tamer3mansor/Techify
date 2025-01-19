@@ -60,8 +60,14 @@
                                 <li>
                                     <form action="{{route('blogs.myBlog')}}" method="post">
                                         @csrf
-                                        <input type="submit" class="nav-link btn btn-link" value="My ">
+                                        <input type="submit" class="nav-link btn btn-link" value="My Blogs ">
                                     </form>
+                                </li>
+                                <li>
+                                    <!-- <form action="{{route('profile.edit')}}" method="get">
+                                        @csrf
+                                        <input type="submit" class="nav-link btn btn-link" value="My Profile">
+                                    </form> -->
                                 </li>
                                 <li>
                                     <form action="{{route('logout')}}" method="post">

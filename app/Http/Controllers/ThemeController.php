@@ -10,20 +10,21 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::paginate(4);
-        return view('theme.index', compact('blogs'));
+        $blogs = Blog::latest()->paginate(4);
+        $latestBlogs = Blog::latest()->take(5)->get();
+        return view('theme.index', compact('blogs', 'latestBlogs'));
 
     }
-   public function category($name)
-{
-    $category = category::where('name', '=', $name)->first();
-    if (!$category) {
-        abort(404, 'Category not found.');
-    }
+    public function category($name)
+    {
+        $category = category::where('name', '=', $name)->first();
+        if (!$category) {
+            abort(404, 'Category not found.');
+        }
 
-    $blogs = Blog::where('category_id', $category->id)->paginate(8);
-    return view('theme.category', compact('blogs', 'name'));
-}
+        $blogs = Blog::where('category_id', $category->id)->paginate(8);
+        return view('theme.category', compact('blogs', 'name'));
+    }
 
     public function contact()
     {

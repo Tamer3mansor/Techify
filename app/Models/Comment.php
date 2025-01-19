@@ -10,7 +10,8 @@ class Comment extends Model
         'name',
         'email',
         'subject',
-        'message'
+        'message',
+        'blog_id'
     ];
     public function blog()
     {

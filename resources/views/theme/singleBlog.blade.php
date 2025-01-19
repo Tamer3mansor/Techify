@@ -8,6 +8,9 @@
 
 <!--================ Start Blog Post Area =================-->
 <section class="blog-post-area section-margin">
+    @if (session('comment'))
+        {{session('comment')}}
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -29,29 +32,39 @@
                             </div>
                         </div>
                     </div>
-                    <p> {{$blog->description}}
-                    </p>
+                    <div class="three-row-blog">
+                        <p>{{substr($blog->description, 0, 100)}}...</p> <!-- First part -->
+                        <p>{{substr($blog->description, 100, 100)}}...</p> <!-- Second part -->
+                        <p>{{substr($blog->description, 200, 100)}}...</p> <!-- Third part -->
+                    </div>
+
                 </div>
 
                 <div class="comments-area">
-                    <h4>05 Comments</h4>
-                    <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{asset("assets")}}/img/avatar.png" width="50px">
-                                </div>
-                                <div class="desc">
-                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
+                    @php
+                        $comments = $blog->comment()->where('blog_id', $blog->id)->get();
+                    @endphp
+                    <h4>{{count($comments)}} Comments</h4>
+                    @foreach ($comments as $comment)
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="{{asset("assets")}}/img/avatar.png" width="50px">
+                                    </div>
+                                    <div class="desc">
+                                        <h5><a href="#">{{$comment->name}}</a></h5>
+                                        <p class="date">{{$comment->created_at->format('y m d')}} </p>
+                                        <p class="comment">
+                                            {{$comment->message}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="comment-list">
+                    @endforeach
+
+                    <!-- <div class="comment-list">
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
@@ -82,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="comment-form">
@@ -96,7 +109,7 @@
                                     value="{{old('name')}}">
                             </div>
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
-
+                            <input type="hidden" value="{{$blog->id}}" name="blog_id">
                             <div class="form-group col-lg-6 col-md-6 email">
                                 <input type="email" class="form-control" name="email" placeholder="Enter email address"
                                     onfocus="this.placeholder = ''"
@@ -118,7 +131,7 @@
                                 value="{{old('message')}}"></textarea>
                         </div>
                         <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                        <button type ='submit'>Post Comment</button>
+                        <button type='submit'>Post Comment</button>
                         <!-- <a href="{{Route('comment.store')}}" class="button submit_btn"></a> -->
                     </form>
                 </div>
