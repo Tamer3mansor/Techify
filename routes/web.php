@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContatcController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriberController;
@@ -20,13 +22,19 @@ Route::middleware('auth')->group(function () {
 # Theme Controller
 Route::controller(ThemeController::class)->name('theme.')->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/category', 'category')->name('category');
+    Route::get('/category/{name}', 'category')->name('category');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/singleBlog', 'singleBlog')->name('singleBlog');
 
 });
+Route::post('my-blog',[BlogController::class,'myBlog'])->name('blogs.myBlog');
 # Subscribe Route
 Route::post('sub/store', [SubscriberController::class, 'store'])->name('sub.store');
 # contact route
-Route::post('contact/store', [ContatcController::class, 'store'])->name('contact.store');
+Route::post( 'contact/store', [ContatcController::class, 'store'])->name('contact.store');
+//comments Route
+Route::post( 'comment/store', [CommentController::class, 'store'])->name('comment.store');
+// blog routes
+Route::resource('blogs', BlogController::class);
 require __DIR__ . '/auth.php';
+

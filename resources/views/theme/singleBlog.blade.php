@@ -3,24 +3,7 @@
 @section('content')
 
 <!--================ Hero sm banner end =================-->
-@include('theme.partial.hero', ['title' => 'Single  Blog '])
-
-<!-- ================ Hero sm Banner start =================-->
-<!-- <section class="mb-30px">
-    <div class="container">
-        <div class="hero-banner hero-banner--sm">
-            <div class="hero-banner__content">
-                <h1>Blog details</h1>
-                <nav aria-label="breadcrumb" class="banner-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section> -->
+@include('theme.partial.hero', ['title' => $blog->name])
 <!--================ Hero sm Banner end ================= -->
 
 <!--================ Start Blog Post Area =================-->
@@ -29,16 +12,16 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="main_blog_details">
-                    <img class="{{asset("assets")}}/img-fluid" src="{{asset("assets")}}/img/blog/blog4.png" alt="">
+                    <img class="w 100" src="{{asset("storage")}}/blogs/{{$blog->image_path}}" alt="">
                     <a href="#">
-                        <h4>Cartridge Is Better Than Ever <br /> A Discount Toner</h4>
+                        <h4>{{$blog->name}}</h4>
                     </a>
                     <div class="user_details">
                         <div class="float-right mt-sm-0 mt-3">
                             <div class="media">
                                 <div class="media-body">
-                                    <h5>Mark wiens</h5>
-                                    <p>12 Dec, 2017 11:21 am</p>
+                                    <h5>{{$blog->user->name}}</h5>
+                                    <p>{{$blog->created_at->format('d m y')}}</p>
                                 </div>
                                 <div class="d-flex">
                                     <img width="42" height="42" src="{{asset("assets")}}/img/avatar.png" alt="">
@@ -46,20 +29,8 @@
                             </div>
                         </div>
                     </div>
-                    <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                        should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-                        fraction of the camp price. However, who has the willpower</p>
-                    <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                        should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-                        fraction of the camp price. However, who has the willpower to actually sit through a
-                        self-imposed MCSE training. who has the willpower to actually sit through a self-imposed MCSE
-                        training.</p>
-                    <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                        should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-                        fraction of the camp price. However, who has the willpower</p>
-                    <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                        should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-                        fraction of the camp price. However, who has the willpower</p>
+                    <p> {{$blog->description}}
+                    </p>
                 </div>
 
                 <div class="comments-area">
@@ -116,27 +87,39 @@
 
                 <div class="comment-form">
                     <h4>Leave a Reply</h4>
-                    <form>
+                    <form method="Post" action="{{Route('comment.store')}}">
+                        @csrf
                         <div class="form-group form-inline">
                             <div class="form-group col-lg-6 col-md-6 name">
-                                <input type="text" class="form-control" id="name" placeholder="Enter Name"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
+                                <input type="text" class="form-control" name="name" placeholder="Enter Name"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'"
+                                    value="{{old('name')}}">
                             </div>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
                             <div class="form-group col-lg-6 col-md-6 email">
-                                <input type="email" class="form-control" id="email" placeholder="Enter email address"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                                <input type="email" class="form-control" name="email" placeholder="Enter email address"
+                                    onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Enter email address'value=" {{old('email')}}">
                             </div>
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
+                            <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'value="
+                                {{old('subject')}}">
                         </div>
+                        <x-input-error :messages="$errors->get('subject')" class="mt-2" />
+
                         <div class="form-group">
                             <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
-                                required=""></textarea>
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""
+                                value="{{old('message')}}"></textarea>
                         </div>
-                        <a href="#" class="button submit_btn">Post Comment</a>
+                        <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                        <button type ='submit'>Post Comment</button>
+                        <!-- <a href="{{Route('comment.store')}}" class="button submit_btn"></a> -->
                     </form>
                 </div>
             </div>
