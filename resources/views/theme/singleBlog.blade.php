@@ -97,44 +97,86 @@
                         </div>
                     </div> -->
                 </div>
+                @guest
+                    <div class="comment-form">
+                        <h4>Leave a Reply</h4>
+                        <form method="Post" action="{{Route('comment.store')}}">
+                            @csrf
+                            <div class="form-group form-inline">
+                                <div class="form-group col-lg-6 col-md-6 name">
+                                    <input type="text" class="form-control" name="name" placeholder="Enter Name"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'"
+                                        value="{{old('name')}}">
+                                </div>
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                <input type="hidden" value="{{$blog->id}}" name="blog_id">
+                                <div class="form-group col-lg-6 col-md-6 email">
+                                    <input type="email" class="form-control" name="email" placeholder="Enter email address"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Enter email address'value=" {{old('email')}}">
+                                </div>
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-                <div class="comment-form">
-                    <h4>Leave a Reply</h4>
-                    <form method="Post" action="{{Route('comment.store')}}">
-                        @csrf
-                        <div class="form-group form-inline">
-                            <div class="form-group col-lg-6 col-md-6 name">
-                                <input type="text" class="form-control" name="name" placeholder="Enter Name"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'"
-                                    value="{{old('name')}}">
                             </div>
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            <input type="hidden" value="{{$blog->id}}" name="blog_id">
-                            <div class="form-group col-lg-6 col-md-6 email">
-                                <input type="email" class="form-control" name="email" placeholder="Enter email address"
-                                    onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = 'Enter email address'value=" {{old('email')}}">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'value="
+                                    {{old('subject')}}">
                             </div>
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('subject')" class="mt-2" />
 
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="subject" placeholder="Subject"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'value="
-                                {{old('subject')}}">
-                        </div>
-                        <x-input-error :messages="$errors->get('subject')" class="mt-2" />
+                            <div class="form-group">
+                                <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""
+                                    value="{{old('message')}}"></textarea>
+                            </div>
+                            <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                            <button type='submit'>Post Comment</button>
+                            <!-- <a href="{{Route('comment.store')}}" class="button submit_btn"></a> -->
+                        </form>
+                    </div>
+                @endguest
+                @auth
+                    <div class="comment-form">
+                        <h4>Leave a Reply</h4>
+                        <form method="Post" action="{{Route('comment.store')}}">
+                            @csrf
+                            <div class="form-group form-inline">
+                                <div class="form-group col-lg-6 col-md-6 name">
+                                    <!-- <input type="text" class="form-control" name="name" placeholder="Enter Name"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'"
+                                        value="{{old('name')}}"> -->
+                                    <input type="hidden" name="name" value="{{Auth::user()->name}}">
+                                </div>
+                                <!-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> -->
+                                <input type="hidden" value="{{$blog->id}}" name="blog_id">
+                                <div class="form-group col-lg-6 col-md-6 email">
 
-                        <div class="form-group">
-                            <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""
-                                value="{{old('message')}}"></textarea>
-                        </div>
-                        <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                        <button type='submit'>Post Comment</button>
-                        <!-- <a href="{{Route('comment.store')}}" class="button submit_btn"></a> -->
-                    </form>
-                </div>
+                                <input type="hidden" name="email" value="{{Auth::user()->email}}">
+
+                                </div>
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'value="
+                                    {{old('subject')}}">
+                            </div>
+                            <x-input-error :messages="$errors->get('subject')" class="mt-2" />
+
+                            <div class="form-group">
+                                <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""
+                                    value="{{old('message')}}"></textarea>
+                            </div>
+                            <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                            <button type='submit'>Post Comment</button>
+                            <!-- <a href="{{Route('comment.store')}}" class="button submit_btn"></a> -->
+                        </form>
+                    </div>
+                @endauth
+
             </div>
 
             <!-- Start Blog Post Siddebar -->

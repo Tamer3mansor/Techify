@@ -18,18 +18,18 @@
                         <div class="col-md-6">
                             <div class="single-recent-blog-post card-view">
                                 <div class="thumb">
-                                    <img class="card-img rounded-0" src="{{asset("storage")}}/blogs/{{$blog->image_path}}"
-                                        alt="">
+                                    <img class="card-img rounded-0" height="250"
+                                        src="{{asset("storage")}}/blogs/{{$blog->image_path}}" alt="">
                                     <ul class="thumb-info">
                                         <li><a href="#"><i class="ti-user"></i>{{$blog->name}}</a></li>
-                                        <li><a href="#"><i class="ti-themify-favicon"></i>2 Comments</a></li>
+                                        <!-- <li><a href="#"><i class="ti-themify-favicon"></i>2 Comments</a></li> -->
                                     </ul>
                                 </div>
                                 <div class="details mt-20">
                                     <a href="blog-single.html">
                                         <h3>{{$blog->title}}</h3>
                                     </a>
-                                    <p>{{$blog->description}}</p>
+                                    <p>{{substr($blog->description,0,150)}}</p>
                                     <a class="button" href='{{Route('blogs.show', ['blog' => $blog])}}'>Read More <i
                                             class="ti-arrow-right"></i></a>
                                 </div>

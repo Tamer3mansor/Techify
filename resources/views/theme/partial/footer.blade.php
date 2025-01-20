@@ -5,9 +5,8 @@
                 <div class="single-footer-widget">
                     <h6>About Us</h6>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore
-                        magna aliqua.
+                        Tamer Medhat
+
                     </p>
                 </div>
             </div>
@@ -16,31 +15,31 @@
                     <h6>Newsletter</h6>
                     <p>Stay update with our latest</p>
                     <div class="" id="mc_embed_signup">
+                        <div class="single-sidebar-widget newsletter-widget">
+                            <div class="form-group mt-30">
+                                @if (session('staus'))
+                                    <div class="alert alert-success">
+                                        {{session('staus')}}
+                                    </div>
 
-                        <form target="_blank" novalidate="true"
-                            action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                            method="get" class="form-inline">
+                                @endif
+                                <form action="{{route('sub.store')}}" method="post">
+                                    @csrf
+                                    <div class="col-autos">
 
-                            <div class="d-flex flex-row">
+                                        <input type="text" class="form-control" id="inlineFormInputGroup"
+                                            placeholder="Enter email" onfocus="this.placeholder = ''"
+                                            onblur="this.placeholder = 'Enter email'" name="subscriber"
+                                            value="{{old('subscriber')}}">
+                                        @error('subscriber')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        <button class="bi bi-arrow-right" type="submit">Subcribe</button>
+                                    </div>
 
-                                <input class="form-control" name="EMAIL" placeholder="Enter Email"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-                                    required="" type="email">
-
-
-                                <button class="click-btn btn btn-default"><span
-                                        class="lnr lnr-arrow-right"></span></button>
-                                <div style="position: absolute; left: -5000px;">
-                                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                        type="text">
-                                </div>
-
-                                <!-- <div class="col-lg-4 col-md-4">
-                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                      </div>  -->
+                                </form>
                             </div>
-                            <div class="info"></div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

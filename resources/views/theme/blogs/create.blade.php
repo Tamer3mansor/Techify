@@ -7,12 +7,13 @@
 
 <!-- ================ Create Blog section start ================= -->
 <section class="section-margin--small section-margin">
-    @if(session('blog_created'))
-        <div><span>{{session('blog_created')}}</span></div>
-    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if(session('blog_created'))
+                    <div class="alert alert-success">{{session('blog_created')}}</div>
+                @endif
                 <form method="POST" action="{{ route('blogs.store') }}" class="form-contact contact_form" id="blogForm"
                     novalidate="novalidate" enctype="multipart/form-data">
                     @csrf
@@ -20,7 +21,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input class="form-control border" name="name" id="title" type="text"
-                                    :value="old('name')" required autofocus autocomplete="name"
+                                    value="{{old('name')}}" required autofocus autocomplete="name"
                                     placeholder="Enter Blog name/title" />
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
@@ -28,7 +29,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input class="form-control border" name="image_path" id="title" type="file"
-                                    :value="old('image_path')" required autofocus autocomplete="image_path"
+                                    value="{{old('image_path')}}" required autofocus autocomplete="image_path"
                                     placeholder="Upload your Blog image" />
                                 <x-input-error :messages="$errors->get('image_path')" class="mt-2" />
                             </div>

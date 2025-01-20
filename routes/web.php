@@ -26,7 +26,7 @@ Route::controller(ThemeController::class)->name('theme.')->group(function () {
     Route::get('/singleBlog', 'singleBlog')->name('singleBlog');
 
 });
-Route::post('my-blog',[BlogController::class,'myBlog'])->name('blogs.myBlog');
+Route::get('my-blog',[BlogController::class,'myBlog'])->name('blogs.myBlog');
 # Subscribe Route
 Route::post('sub/store', [SubscriberController::class, 'store'])->name('sub.store');
 # contact route

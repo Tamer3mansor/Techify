@@ -2,15 +2,19 @@
 @section('title', 'home')
 @section('home-active', 'active')
 @section('content')
+@php
+    use Carbon\Carbon;
+
+@endphp
 <main class="site-main">
     <!--================Hero Banner start =================-->
-    <section class="mb-30px">
+    <section class="mb-30px" >
         <div class="container">
             <div class="hero-banner">
                 <div class="hero-banner__content">
-                    <h3>Tours & Travels</h3>
-                    <h1>Amazing Places on earth</h1>
-                    <h4>December 12, 2018</h4>
+                    <h3>Techify</h3>
+                    <h1>Amazing Places To Tech Blogs</h1>
+                    <h4>{{date("Y-m-d")}}</h4>
                 </div>
             </div>
         </div>
@@ -33,7 +37,15 @@
                             <h3><a
                                     href="{{Route('blogs.show', ['blog' => $lb])}}">{{substr($lb->description, 0, 20) . "...."}}</a>
                             </h3>
-                            <p>{{time()}}</p>
+                            @php
+$createdAt = $lb->created_at;
+$now = Carbon::now();
+$differenceInDays = $createdAt->diffInDays($now);
+                            @endphp
+                            <p>{{
+$readableDifference = $createdAt->diffForHumans();
+
+                            }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -85,7 +97,7 @@
                 </div>
 
                 <!-- Start Blog Post Siddebar -->
-                @include('theme.partial.sidebar');
+                @include('theme.partial.sidebar')
                 <!-- End Blog Post Siddebar -->
             </div>
     </section>

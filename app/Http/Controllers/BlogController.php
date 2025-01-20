@@ -76,10 +76,10 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        if (Auth::check()) {
-            return view('theme.singleBlog', compact('blog'));
-        } else
-            abort(403);
+
+        return view('theme.singleBlog', compact('blog'));
+
+        // abort(403);
     }
 
     /**
@@ -134,7 +134,7 @@ class BlogController extends Controller
 
             Storage::delete("public/blogs/$blog->image_path");
             $blog->delete();
-            to_route('blogs.myBlog');
+            return back()->with('delete', 'You blog deleted successfully');
         }
         abort(403);
 

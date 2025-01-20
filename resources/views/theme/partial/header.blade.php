@@ -58,8 +58,9 @@
                                 aria-haspopup="true" aria-expanded="false"> {{ explode(" ", Auth::user()->name)[0] }}</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <form action="{{route('blogs.myBlog')}}" method="post">
+                                    <form action="{{route('blogs.myBlog')}}" method="get">
                                         @csrf
+                                        @method('get')
                                         <input type="submit" class="nav-link btn btn-link" value="My Blogs ">
                                     </form>
                                 </li>

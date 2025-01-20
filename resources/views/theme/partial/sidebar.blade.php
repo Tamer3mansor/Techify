@@ -4,32 +4,7 @@
 @endphp
 <div class="col-lg-4 sidebar-widgets">
     <div class="widget-wrap">
-        <div class="single-sidebar-widget newsletter-widget">
-            <h4 class="single-sidebar-widget__title">Newsletter</h4>
-            <div class="form-group mt-30">
-                @if (session('staus'))
-                    <div class="alert alert-success">
-                        {{session('staus')}}
-                    </div>
-
-                @endif
-                <form action="{{route('sub.store')}}" method="post">
-                    @csrf
-
-                    <div class="col-autos">
-
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
-                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" name="subscriber"
-                            value="{{old('subscriber')}}">
-                        @error('subscriber')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                        <button class="bbtns d-block mt-20 w-100" type="submit">Subcribe</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
+        
 
         <div class="single-sidebar-widget post-category-widget">
             <h4 class="single-sidebar-widget__title">Catgory</h4>
