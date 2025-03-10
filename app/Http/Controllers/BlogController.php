@@ -24,8 +24,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        // dd('hi');
-        // return view('theme.blogs.my-blog');
+        return response()->json(Blog::get(), 201);
     }
     public function myBlog()
     {
